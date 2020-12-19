@@ -10,15 +10,18 @@ class MyWidget(QMainWindow, Ui_Form):
         super().__init__()
         self.setupUi(self)
         self.pushButton.clicked.connect(self.rep)
+        self.cp = False
 
     def rep(self):
+        self.cp = True
         self.repaint()
 
     def paintEvent(self, event):
-        qp = QPainter()
-        qp.begin(self)
-        self.run(qp)
-        qp.end()
+        if self.cp:
+            qp = QPainter()
+            qp.begin(self)
+            self.run(qp)
+            qp.end()
 
     def run(self, qp):
         qp.setPen(QColor(255, 255, 0))
